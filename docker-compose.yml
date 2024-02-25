@@ -1,0 +1,20 @@
+version: '3'
+services:
+  shop:
+    volumes:
+      - ./code:/var/www/html
+      - ~/.ssh:/root/.ssh
+    image: asimlqt/php-apache:8.2
+    container_name: shop
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+  shop-db:
+    image: mysql:8.0.31
+    container_name: shop_db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
